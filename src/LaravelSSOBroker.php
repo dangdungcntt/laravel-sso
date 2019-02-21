@@ -4,7 +4,7 @@ namespace Nddcoder\LaravelSSO;
 
 use Illuminate\Support\Facades\Cookie;
 use Nddcoder\LaravelSSO\Exceptions\MissingConfigurationException;
-use Nddcoder\SimpleSSO\SSOBroker;
+use Zefy\SimpleSSO\SSOBroker;
 use GuzzleHttp;
 
 /**

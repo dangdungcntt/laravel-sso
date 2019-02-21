@@ -24,6 +24,9 @@ return [
      */
 
     'routePrefix' => 'api/sso',
+    'routeMiddleware' => [
+        'api'
+    ],
 
     'usersModel' => \App\User::class,
     'brokersModel' => Nddcoder\LaravelSSO\Models\Broker::class,
