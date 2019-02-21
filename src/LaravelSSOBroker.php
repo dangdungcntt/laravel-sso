@@ -17,6 +17,28 @@ use GuzzleHttp;
 class LaravelSSOBroker extends SSOBroker
 {
     /**
+     * Login client to SSO server with user credentials.
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @return bool
+     */
+    public function login(string $username, string $password)
+    {
+        $this->userInfo = $this->makeRequest('POST', 'login', [
+            config('laravel-sso.usernameField') => $username, 
+            'password' => $password
+        ]);
+        
+        if (!isset($this->userInfo['error']) && isset($this->userInfo['data'][config('laravel-sso.userIdField')])) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
      * Generate request url.
      *
      * @param string $command

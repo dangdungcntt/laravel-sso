@@ -14,6 +14,19 @@ return [
 
     'type' => 'server',
 
+    // Prefix of routes registered by package and use when send command from broker to SSO Server
+    'routePrefix' => 'api/sso',
+
+    // Username field to authenticate (like: email, username,..)
+    'usernameField' => 'email',
+
+    // User ID field: required field to mapping User
+    'userIdField' => 'uuid',
+
+    // User model to authenticate & login in broker
+    'usersModel' => \App\Models\Auth\User::class,
+
+
     /*
      |--------------------------------------------------------------------------
      | Settings necessary for the SSO server.
@@ -23,19 +36,20 @@ return [
      |
      */
 
-    'routePrefix' => 'api/sso',
+
+    
     'routeMiddleware' => [
         'api'
     ],
 
-    'usersModel' => \App\User::class,
+    // Broker model use when find broker
     'brokersModel' => Nddcoder\LaravelSSO\Models\Broker::class,
-
-    // Table used in Nddcoder\LaravelSSO\Models\Broker model
-    'brokersTable' => 'brokers',
 
     // Field use when find broker
     'brokerIdField' => 'name',
+
+    // Table used in Nddcoder\LaravelSSO\Models\Broker model
+    'brokersTable' => 'brokers',
 
     // Logged in user fields sent to brokers.
     'userFields' => [
@@ -43,7 +57,6 @@ return [
         'id' => 'id',
     ],
 
-    'usernameField' => 'username',
 
     /*
      |--------------------------------------------------------------------------
@@ -57,6 +70,4 @@ return [
     'serverUrl' => env('SSO_SERVER_URL', null),
     'brokerName' => env('SSO_BROKER_NAME', null),
     'brokerSecret' => env('SSO_BROKER_SECRET', null),
-
-    'userIdField' => 'id',
 ];

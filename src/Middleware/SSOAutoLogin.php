@@ -30,10 +30,18 @@ class SSOAutoLogin
             return $this->clearSSOCookie($request);
         }
 
+        $userIdField = config('laravel-sso.userIdField');
+
         // If client is logged in SSO server and didn't logged in broker...
-        if (isset($response['data']) && (auth()->guest() || auth()->user()->{config('laravel-sso.userIdField')} != $response['data'][config('laravel-sso.userIdField')])) {
+        if (isset($response['data']) && (auth()->guest() || auth()->user()->{config('laravel-sso.userIdField')} != $response['data'][$userIdField])) {
             // ... we will authenticate our client.
-            auth()->loginUsingId($response['data'][config('laravel-sso.userIdField')]);
+
+            $user = config('laravel-sso.usersModel')::query()
+                ->firstOrCreate([
+                    $idField => $response['data'][$userIdField]
+                ], $response['data']);
+
+            auth()->login($user);
         }
 
         return $next($request);
