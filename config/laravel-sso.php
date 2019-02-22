@@ -21,10 +21,10 @@ return [
     'usernameField' => 'email',
 
     // User ID field: required field to mapping User
-    'userIdField' => 'uuid',
+    'userIdField' => 'id',
 
     // User model to authenticate & login in broker
-    'usersModel' => \App\Models\Auth\User::class,
+    'usersModel' => \App\User::class,
 
 
     /*

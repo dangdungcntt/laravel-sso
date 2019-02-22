@@ -38,7 +38,7 @@ class SSOAutoLogin
 
             $user = config('laravel-sso.usersModel')::query()
                 ->firstOrCreate([
-                    $idField => $response['data'][$userIdField]
+                    $userIdField => $response['data'][$userIdField]
                 ], $response['data']);
 
             auth()->login($user);
