@@ -83,19 +83,16 @@ SSO_BROKER_SECRET=
 
 
 
-Edit your `app/Http/Kernel.php` by adding `\Nddcoder\LaravelSSO\Middleware\SSOAutoLogin::class` middleware to `web` middleware group. It should look like this:
+Edit your `app/Http/Kernel.php` by adding `\Nddcoder\LaravelSSO\Middleware\SSOAutoLogin::class` middleware to `$routeMiddleware` array. It should look like this:
 ```php
-protected $middlewareGroups = [
-        'web' => [
-            ...
-            \Nddcoder\LaravelSSO\Middleware\SSOAutoLogin::class,
-        ],
-
-        'api' => [
-            ...
-        ],
-    ];
+protected $routeMiddleware = [
+    'auto_login' => \Nddcoder\LaravelSSO\Middleware\SSOAutoLogin::class,
+    //...
+];
 ```
+
+Then use like this:
+![Use auto_login middleware](https://i.imgur.com/1p3BTp1.png)
 
 
 
