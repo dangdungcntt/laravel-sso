@@ -26,7 +26,13 @@ class SSOAutoLogin
         }
 
         // If there is a problem with data in SSO server, we will re-attach client session.
-        if (isset($response['error']) && strpos($response['error'], 'There is no saved session data associated with the broker session id') !== false) {
+        if (isset($response['error']) 
+            && (
+                strpos($response['error'], 'There is no saved session data associated with the broker session id') !== false
+                || strpos($response['error'], 'User not authenticated') !== false
+                || strpos($response['error'], 'User not found') !== false
+            )
+        ) {
             return $this->clearSSOCookie($request);
         }
 

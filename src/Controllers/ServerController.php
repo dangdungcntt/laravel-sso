@@ -16,6 +16,7 @@ class ServerController extends BaseController
      */
     public function attach(Request $request, LaravelSSOServer $server)
     {
+        $request->session()->put('sso_user', auth()->user()->{config('laravel-sso.usernameField')});
         $server->attach(
             $request->get('broker', null),
             $request->get('token', null),

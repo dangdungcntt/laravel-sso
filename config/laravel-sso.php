@@ -38,8 +38,12 @@ return [
 
 
     
-    'routeMiddleware' => [
-        'api'
+    'routeGroupMiddleware' => [
+        'sso'
+    ],
+
+    'routeAttachMiddleware' => [
+        'auth'
     ],
 
     // Broker model use when find broker
