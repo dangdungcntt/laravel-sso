@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Zefy\SimpleSSO\SSOServer;
 use Nddcoder\LaravelSSO\Resources\UserResource;
 
@@ -222,5 +223,23 @@ class LaravelSSOServer extends SSOServer
     protected function getBrokerSessionData(string $brokerSessionId)
     {
         return Cache::get('broker_session:' . $brokerSessionId);
+    }
+
+    public function logout()
+    {
+        try {
+            $this->startBrokerSession();
+            $this->setSessionData('sso_user', null);
+
+            if ($user = request()->user()) {
+                $user->setRememberToken(Str::random(60));
+                $user->save();
+                request()->session()->invalidate();
+            }
+        } catch (SSOServerException $e) {
+            return $this->returnJson(['error' => $e->getMessage()]);
+        }
+
+        return $this->returnJson(['success' => 'User has been successfully logged out.']);
     }
 }
