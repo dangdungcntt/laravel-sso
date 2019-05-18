@@ -7,7 +7,7 @@ This package based on [Simple PHP SSO integration for Laravel](https://github.co
 * PHP 7.1+
 
 ### Documentation
-Please read [based package docs](https://github.com/zefy/laravel-sso).
+Please read [Simple PHP SSO integration for Laravel docs](https://github.com/zefy/laravel-sso).
 
 # Installation
 ### Server
